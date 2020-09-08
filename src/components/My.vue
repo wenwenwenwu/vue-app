@@ -1,0 +1,15 @@
+<template>
+  <div class="my">
+    <h1>My</h1>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+<style lang="scss" scpped>
+.my {
+  width: 100%;
+  height: 100%;
+}
+</style>
