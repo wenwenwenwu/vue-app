@@ -12,5 +12,6 @@ export default {};
 .home {
   width: 100%;
   height: 100%;
+  font-size: 32px;
 }
 </style>

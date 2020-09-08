@@ -53,7 +53,7 @@ export default {
 @import '@css/style.scss';
 .tool-bar {
   width: 100%;
-  height: 46px;
+  height: px2rme(46);
   display: flex;
   justify-content: space-around;
   background-color: white;

@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@css/style.scss";
 
-#app {
+#app { //id=app的div
   width: 100%;
   height: 100%;
 }

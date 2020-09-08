@@ -19,7 +19,7 @@ export default {
   methods: {
     // 组件切换
     onChangeFragment: function(componentName) {
-        console.log(componentName)
+        this.currentComponent = componentName
     }
   },
   data: function() {
