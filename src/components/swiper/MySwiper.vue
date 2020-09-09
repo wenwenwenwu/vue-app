@@ -1,26 +1,24 @@
 <template>
-  <swiper :swiperOption="swiperOption">
+  <swiper :options="swiperOption">
     <!-- slides -->
     <swiper-slide v-for="(item, index) in swiperImgs" :key="index">
       <img class="swiper-slide-img" :src="item" alt srcset :style="{ height: height }" />
     </swiper-slide>
     <!-- Optional controls -->
-    <template v-slot:pagination>
-      <div class="swiper-pagination"></div>
-    </template>
+    <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
 </template>
 
 <script>
-import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-import 'swiper/css/swiper.css'
+import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   directives: {
-    swiper: directive
+    swiper: directive,
   },
   props: {
     height: {
@@ -37,14 +35,36 @@ export default {
   },
   data: function () {
     return {
-      // swiper 配置
       swiperOption: {
-        // 自动切换
         autoplay: true,
-        // 自动高度，让 siwper 的高度跟随 slide 的高度变化
-        autoheight: true,
+        autoHeight: "auto",
+        pagination: {
+          el: ".swiper-pagination",
+          type: "bullets",
+          bulletClass: "custom-bullet-class",
+        },
       },
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@css/style.scss";
+.swiper-pagination {
+  bottom: px2rem(12);
+}
+.custom-bullet-class {
+  box-sizing: border-box;
+  border-radius: 100%;
+  height: px2rem(6);
+  height: px2rem(6);
+  border: px2rem(1) solid white;
+  margin: 0 px2rem(4);
+  display: inline-block;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+</style>
