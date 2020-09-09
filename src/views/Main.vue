@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import toolBar from "@c/ToolBar.vue";
+import toolBar from "@c/currency/ToolBar.vue";
 export default {
   components: {
     "tool-bar": toolBar,
