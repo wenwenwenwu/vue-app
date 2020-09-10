@@ -17,9 +17,11 @@ export default {
     Swiper,
     SwiperSlide,
   },
+
   directives: {
     swiper: directive,
   },
+
   props: {
     height: {
       type: String,
@@ -33,6 +35,7 @@ export default {
       },
     },
   },
+  
   data: function () {
     return {
       swiperOption: {
@@ -42,6 +45,7 @@ export default {
           el: ".swiper-pagination",
           type: "bullets",
           bulletClass: "custom-bullet-class",
+          bulletActiveClass: "my-bullet-active",
         },
       },
     };
@@ -49,22 +53,23 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@css/style.scss";
 .swiper-pagination {
   bottom: px2rem(12);
+  .custom-bullet-class {
+    box-sizing: border-box;
+    border-radius: 100%;
+    width: px2rem(6);
+    height: px2rem(6);
+    border: px2rem(1) solid white;
+    margin: 0 px2rem(4);
+    display: inline-block;
+    opacity: 1;
+  }
 }
-.custom-bullet-class {
-  box-sizing: border-box;
-  border-radius: 100%;
-  height: px2rem(6);
-  height: px2rem(6);
-  border: px2rem(1) solid white;
-  margin: 0 px2rem(4);
-  display: inline-block;
-  opacity: 1;
-}
-.swiper-pagination-bullet-active {
+
+.my-bullet-active {
   background-color: white;
 }
 </style>
