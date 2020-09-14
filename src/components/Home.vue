@@ -8,6 +8,7 @@
         </div>
       </activity>
       <mode-options></mode-options>
+      <seconds :dataSource="secondsDatas"></seconds>
     </div>
   </div>
 </template>
@@ -16,29 +17,37 @@
 import MySwiper from "@c/swiper/MySwiper.vue";
 import Activity from "@c/currency/Activity.vue";
 import ModeOptions from "@c/currency/ModeOptions.vue";
+import Seconds from "@c/seconds/Seconds.vue";
 
 export default {
   components: {
     MySwiper,
     Activity,
     ModeOptions,
+    Seconds,
   },
   data: function () {
     return {
       swiperData: [],
       swiperHeight: "184px",
       activityData: [],
+      secondsDatas:[]
     };
   },
   methods: {
     initData: function () {
       this.$http
-        .all([this.$http.get("/swiper"), this.$http.get("activitys")])
+        .all([
+          this.$http.get("/swiper"), 
+          this.$http.get("activitys"),
+          this.$http.get("/seconds")
+          ])
         .then(
-          this.$http.spread((swiperData, activityData) => {
-            console.log(swiperData, activityData);
+          this.$http.spread((swiperData, activityData, secondsData) => {
             this.swiperData = swiperData.list;
             this.activityData = activityData.list;
+            this.secondsDatas = secondsData.list
+            console.log(secondsData.list)
           })
         );
     },

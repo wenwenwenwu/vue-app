@@ -3,5 +3,8 @@ $iphone6FontSize: 375 / 10;
     @return $px / $iphone6FontSize + rem;
 }
 
+$titleSize: px2rem(16);
 $infoSize: px2rem(14);
 $minInfoSize: px2rem(12);
+$radiusSize:px2rem(6);
+$marginSize:px2rem(8);
