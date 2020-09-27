@@ -9,6 +9,12 @@
       </activity>
       <mode-options></mode-options>
       <seconds :dataSource="secondsDatas"></seconds>
+      <activity>
+        <div class="activity-pin-gou-jie">
+          <img src="@imgs/haoHuoQiang.gif"/>
+        </div>
+      </activity>
+      <goods></goods>
     </div>
   </div>
 </template>
@@ -18,13 +24,14 @@ import MySwiper from "@c/swiper/MySwiper.vue";
 import Activity from "@c/currency/Activity.vue";
 import ModeOptions from "@c/currency/ModeOptions.vue";
 import Seconds from "@c/seconds/Seconds.vue";
-
+import Goods from "@c/goods/Goods.vue"
 export default {
   components: {
     MySwiper,
     Activity,
     ModeOptions,
     Seconds,
+    Goods
   },
   data: function () {
     return {
@@ -47,7 +54,6 @@ export default {
             this.swiperData = swiperData.list;
             this.activityData = activityData.list;
             this.secondsDatas = secondsData.list
-            console.log(secondsData.list)
           })
         );
     },
@@ -64,6 +70,8 @@ export default {
   width: 100%;
   height: 100%;
   background-color: $bgColor;
+  overFlow: hidden;
+  overFlow-y: auto;
 
   &-content {
     height: 100%;
@@ -76,6 +84,15 @@ export default {
       img {
         display: inline-block;
         width: 33.33%;
+      }
+    }
+
+    .activity-pin-gou-jie {
+      background-color: white;
+      margin-top: $marginSize;
+      
+      img {
+        width: 100%;
       }
     }
   }
