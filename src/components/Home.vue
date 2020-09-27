@@ -1,17 +1,26 @@
 <template>
   <div class="home">
+    <navigation-bar :pageName="'首页'"></navigation-bar>
     <div class="home-content">
-      <my-swiper :swiperImgs="swiperData.map(item => item.icon)" :height="swiperHeight"></my-swiper>
+      <my-swiper
+        :swiperImgs="swiperData.map((item) => item.icon)"
+        :height="swiperHeight"
+      ></my-swiper>
       <activity>
         <div class="activity-520">
-          <img v-for="(item,index) in activityData" :key="index" :src="item.icon" alt />
+          <img
+            v-for="(item, index) in activityData"
+            :key="index"
+            :src="item.icon"
+            alt
+          />
         </div>
       </activity>
       <mode-options></mode-options>
       <seconds :dataSource="secondsDatas"></seconds>
       <activity>
         <div class="activity-pin-gou-jie">
-          <img src="@imgs/haoHuoQiang.gif"/>
+          <img src="@imgs/haoHuoQiang.gif" />
         </div>
       </activity>
       <goods></goods>
@@ -24,36 +33,39 @@ import MySwiper from "@c/swiper/MySwiper.vue";
 import Activity from "@c/currency/Activity.vue";
 import ModeOptions from "@c/currency/ModeOptions.vue";
 import Seconds from "@c/seconds/Seconds.vue";
-import Goods from "@c/goods/Goods.vue"
+import Goods from "@c/goods/Goods.vue";
+import NavigationBar from "@c/currency/NavigationBar.vue";
+
 export default {
   components: {
     MySwiper,
     Activity,
     ModeOptions,
     Seconds,
-    Goods
+    Goods,
+    NavigationBar,
   },
   data: function () {
     return {
       swiperData: [],
       swiperHeight: "184px",
       activityData: [],
-      secondsDatas:[]
+      secondsDatas: [],
     };
   },
   methods: {
     initData: function () {
       this.$http
         .all([
-          this.$http.get("/swiper"), 
+          this.$http.get("/swiper"),
           this.$http.get("activitys"),
-          this.$http.get("/seconds")
-          ])
+          this.$http.get("/seconds"),
+        ])
         .then(
           this.$http.spread((swiperData, activityData, secondsData) => {
             this.swiperData = swiperData.list;
             this.activityData = activityData.list;
-            this.secondsDatas = secondsData.list
+            this.secondsDatas = secondsData.list;
           })
         );
     },
@@ -70,8 +82,8 @@ export default {
   width: 100%;
   height: 100%;
   background-color: $bgColor;
-  overFlow: hidden;
-  overFlow-y: auto;
+  overflow: hidden;
+  overflow-y: auto;
 
   &-content {
     height: 100%;
@@ -90,7 +102,7 @@ export default {
     .activity-pin-gou-jie {
       background-color: white;
       margin-top: $marginSize;
-      
+
       img {
         width: 100%;
       }
