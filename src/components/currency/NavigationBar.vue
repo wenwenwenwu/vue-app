@@ -1,7 +1,14 @@
 <template>
-  <div class="nav-bar z-index-max" :class="{ 'bottom-line': pageName }" :style="navBarStyle">
+  <!-- :style 格式动态绑定（绑定一个对象） -->
+  <div
+    class="nav-bar z-index-max"
+    :class="{ 'bottom-line': pageName }"
+    :style="navBarStyle"
+  >
     <div class="left">
+      <!-- v-if 组件条件加载 -->
       <img v-if="isShowBack" src="@imgs/back.svg" alt="" />
+      <!-- slot 组件插槽 -->
       <slot name="nav-left"></slot>
     </div>
     <div class="center">
@@ -27,12 +34,12 @@ export default {
     },
     navBarStyle: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
-          backgroundColor: 'white'
+          backgroundColor: "white",
         };
-      }
-    }
+      },
+    },
   },
 };
 </script>
@@ -42,20 +49,19 @@ export default {
 .nav-bar {
   width: 100%;
   height: px2rem(44);
-  line-height: px2rem(44);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .left,
   .right {
-    display: flex;
     height: 100%;
     width: px2rem(26);
     padding: 0 $marginSize;
+    display: flex;
 
     img {
       width: 100%;
-      align-self: center;
     }
   }
 
@@ -66,8 +72,10 @@ export default {
 
     .page-title {
       font-size: $titleSize;
-      text-align: center;
       flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

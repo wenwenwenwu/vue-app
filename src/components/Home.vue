@@ -9,7 +9,7 @@
         <search-bar
           :bgColor="navBarCurrentSlotStyle.search.bgColor"
           :hintColor="navBarCurrentSlotStyle.search.hintColor"
-          :icon="require('@imgs/search.svg')"
+          :icon="navBarCurrentSlotStyle.search.icon"
         ></search-bar>
       </template>
       <template v-slot:nav-right>
@@ -75,7 +75,7 @@ export default {
           search: {
             bgColor: "#ffffff",
             hintColor: "#999999",
-            icon: "@imgs/search.svg",
+            icon: require("@imgs/search.svg"),
           },
           rightIcon: require("@imgs/message-white.svg"),
         },
@@ -84,7 +84,7 @@ export default {
           search: {
             bgColor: "#d7d7d7",
             hintColor: "#ffffff",
-            icon: "@imgs/search-white.svg",
+            icon: require("@imgs/search-white.svg"),
           },
           rightIcon: require("@imgs/message.svg"),
         },

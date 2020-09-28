@@ -2,8 +2,8 @@
 @import './dimens.scss';
 @import './colors.scss';
 
-// 文本最多两行
-.text-line-2 {
+// 全局使用的css
+.text-line-2 { // 最多显示两行文本
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
@@ -12,6 +12,6 @@
     -webkit-box-orient: vertical;
 }
 
-.z-index-max {
+.z-index-max { // 最上层
     z-index: 99999
 }
