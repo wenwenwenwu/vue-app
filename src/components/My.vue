@@ -1,9 +1,6 @@
 <template>
   <div class="my">
-    <navigation-bar
-      :pageName="'个人中心'"
-      :isShowBack="false"
-    ></navigation-bar>
+    <navigation-bar :pageName="'个人中心'" :isShowBack="true"></navigation-bar>
     <h1>My</h1>
   </div>
 </template>

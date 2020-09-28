@@ -9,8 +9,8 @@
 import NavigationBar from "@c/currency/NavigationBar.vue";
 export default {
   components: {
-    NavigationBar
-  }
+    NavigationBar,
+  },
 };
 </script>
 <style lang="scss" scoped>

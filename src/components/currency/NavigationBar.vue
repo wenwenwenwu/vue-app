@@ -1,12 +1,16 @@
 <template>
-  <div class="nav-bar z-index-max" :class="{'bottom-line':pageName}">
+  <div class="nav-bar z-index-max" :class="{ 'bottom-line': pageName }" :style="navBarStyle">
     <div class="left">
       <img v-if="isShowBack" src="@imgs/back.svg" alt="" />
+      <slot name="nav-left"></slot>
     </div>
     <div class="center">
       <span class="page-title" v-if="pageName">{{ pageName }}</span>
+      <slot name="nav-center"></slot>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <slot name="nav-right"></slot>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    navBarStyle: {
+      type: Object,
+      default: function() {
+        return {
+          backgroundColor: 'white'
+        };
+      }
+    }
   },
 };
 </script>
@@ -50,10 +62,12 @@ export default {
   .center {
     height: 100%;
     display: flex;
+    flex-grow: 1; //拉伸填充剩余空间
 
     .page-title {
       font-size: $titleSize;
-      align-self: center;
+      text-align: center;
+      flex-grow: 1;
     }
   }
 }
