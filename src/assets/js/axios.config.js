@@ -26,5 +26,5 @@ axios.interceptors.response.use(
   }
 );
 
-//项目中通过this.$http访问
+//每一个vue组件都是Vue的实例，设置之后整个项目的vue文件可以通过this.$http访问
 Vue.prototype.$http = axios;

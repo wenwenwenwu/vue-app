@@ -1,0 +1,43 @@
+<template>
+  <div class="goods-list-page">
+    <navigation-bar
+      @on-left-click="onBackClick"
+      :pageName="'商品列表'"
+    ></navigation-bar>
+    <div class="goods-list-page-container">
+      <p style="font-size: 32px">goodsList</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import NavigationBar from "@c/currency/NavigationBar.vue";
+export default {
+  components: {
+    NavigationBar,
+  },
+  methods: {
+    onBackClick: function () {
+      this.$router.go(-1);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "@css/style.scss";
+
+.goods-list-page {
+  height: 100%;
+  width: 100%;
+  background-color: $bgColor;
+  display: flex;
+  flex-direction: column;
+
+  &-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+</style>

@@ -64,28 +64,31 @@ export default {
       this.$http.get("/goods").then((data) => {
         this.dataSource = data.list;
         this.initImgStyles();
-        //dom创建完成之后
+        //created()钩子函数
+        //因为该钩子函数执行时DOM并未进行任何渲染，因此一定要将DOM操作的代码放进Vue.nextTick()的回调函数中
+        //mounted()钩子函数
+        //因为该钩子函数执行时所有的DOM挂载和渲染都已完成，因此时在该钩子函数中进行任何DOM操作都不会有问题
         this.$nextTick(() => {
           this.initWaterfall();
         });
       });
     },
 
-    imgHeight: function () {
+    initImgStyles: function () {
+      this.dataSource.forEach((item) => {
+        let imgHeight = this.composeRandomImgHeight() + "px";
+        this.imgStyles.push({
+          height: imgHeight,
+        });
+      });
+    },
+
+    composeRandomImgHeight: function () {
       //返回随机图片高度
       let result =
         Math.random() * (this.MAX_IMG_HEIGHT - this.MIN_IMG_HEIGHT) +
         this.MIN_IMG_HEIGHT;
       return result;
-    },
-
-    initImgStyles: function () {
-      this.dataSource.forEach((item) => {
-        let imgHeight = this.imgHeight() + "px";
-        this.imgStyles.push({
-          height: imgHeight,
-        });
-      });
     },
 
     initWaterfall: function () {
@@ -115,7 +118,6 @@ export default {
             ? leftTotalHeight
             : rightTotalHeight) + "px";
       });
-      console.log(this.goodsItemStyles);
     },
   },
 };
@@ -125,11 +127,18 @@ export default {
 @import "@css/style.scss";
 .goods {
   background-color: $bgColor;
+  margin: $marginSize;
 
   &-item {
     background-color: white;
+    border-radius: $radiusSize;
+    box-sizing: border-box; //width为终极宽度（包含padding）
     padding: $marginSize;
-    box-sizing: border-box;
+    width: 49%; //除去margin，包含padding的宽度
+
+    &-img {
+      width: 100%; 
+    }
 
     &-desc {
       width: 100%;
@@ -167,16 +176,9 @@ export default {
 
 .goods-waterfall {
   position: relative;
-  margin: $marginSize;
 
   &-item {
     position: absolute;
-    width: 49%;
-    border-radius: $radiusSize;
-
-    .goods-item-img {
-      width: 100%;
-    }
   }
 }
 </style>

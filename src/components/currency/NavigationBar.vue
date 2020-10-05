@@ -5,7 +5,7 @@
     :class="{ 'bottom-line': pageName }"
     :style="navBarStyle"
   >
-    <div class="left">
+    <div class="left" @click="$emit('on-left-click')">
       <!-- v-if 组件条件加载 -->
       <img v-if="isShowBack" src="@imgs/back.svg" alt="" />
       <!-- slot 组件插槽 -->
