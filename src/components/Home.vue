@@ -27,7 +27,7 @@
                 <img src="@imgs/haoHuoQiang.gif" />
             </div>
         </activity>
-        <goods layoutType="3"></goods>
+        <goods layoutType="3" :isScroll="false"></goods>
     </div>
 </div>
 </template>

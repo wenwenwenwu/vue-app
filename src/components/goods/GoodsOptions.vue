@@ -111,6 +111,12 @@ export default {
             this.isShowSubContent = false;
         },
     },
+
+    watch: {
+        selectOption: function (newValue) {
+            this.$emit("optionsChange", newValue.id);
+        },
+    },
 };
 </script>
 
