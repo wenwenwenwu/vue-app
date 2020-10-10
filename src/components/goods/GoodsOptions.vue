@@ -1,6 +1,6 @@
 <template>
 <div class="goods-options z-index-2">
-    <!-- 以及筛选 -->
+    <!-- 一级筛选 -->
     <ul class="goods-options-list">
         <li class="goods-options-list-item" v-for="(item, index) in optionDatas" :key="index">
             <a class="goods-options-list-item-content" @click="onOptionsItemClick(item, index)">
@@ -18,7 +18,7 @@
     </ul>
     <!-- 二级筛选 -->
     <transition name="fold-height">
-        <div class="options-sub-content z-index-2" v-show="isShowSubContent">
+        <div class="options-sub-content z-index-2" v-if="isShowSubContent">
             <ul class="options-sub-content-list">
                 <li class="options-sub-content-list-item" v-for="(item, index) in selectOption.subs" :key="index">
                     <a class="options-sub-content-list-item-content" @click="onSubOptionsItemClick(item, index)">
@@ -33,9 +33,7 @@
         </div>
     </transition>
     <!-- 遮盖层 -->
-    <div class="cover" v-show="isShowSubContent" @click="isShowSubContent = false">
-    </div>
-
+    <div class="cover" v-show="isShowSubContent" @click="isShowSubContent = false"></div>
 </div>
 </template>
 
@@ -44,6 +42,8 @@ export default {
     data: function () {
         return {
             optionDatas: [{
+                    //记录了选中子项的id和name
+                    //当选中子项后遍历optionDatas,更新数据,从而更新UI
                     id: "1",
                     name: "默认",
                     subs: [{
@@ -75,34 +75,39 @@ export default {
             isShowSubContent: false,
         };
     },
+
     created: function () {
         this.selectOption = this.optionDatas[0];
     },
+
     methods: {
-        //   有子选项则展开
-        //   子选项已展开，则关闭
         onOptionsItemClick: function (item, index) {
+            //显示子选项则关闭子选项列表
             if (this.isShowSubContent) {
                 this.isShowSubContent = false;
                 return;
             }
-            if (item.subs.length > 0 && this.selectOption.id === item.id) {
+            //当前选项有子选项，且当前选项为选中项的话，显示子选项列表
+            if (item.subs.length > 0 && item.id === this.selectOption.id) {
                 this.isShowSubContent = true;
             }
+            //选中当前项
             this.selectOption = item;
         },
 
         onSubOptionsItemClick: function (item, index) {
+            //选中当前子选项
             this.selectOption = item;
-            //刷新optionDatas数据
+            //遍历optionDatas，刷新数据
             this.optionDatas.forEach((option) => {
                 option.subs.forEach((subOption) => {
-                    if (this.selectOption.id === subOption.id) {
+                    if (subOption.id === this.selectOption.id) {
                         option.id = subOption.id;
                         option.name = subOption.name;
                     }
                 });
             });
+            //关闭子选项列表
             this.isShowSubContent = false;
         },
     },
