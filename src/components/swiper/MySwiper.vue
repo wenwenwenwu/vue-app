@@ -1,10 +1,11 @@
 <template>
+<!-- 轮播器 -->
 <swiper :options="swiperOption">
-    <!-- slides -->
+    <!-- 轮播项 -->
     <swiper-slide v-for="(item, index) in swiperImgs" :key="index">
-        <img class="swiper-slide-img" :src="item" alt srcset :style="{ height: height }" />
+        <img class="swiper-slide-img" :src="item" :style="{ height: height }" />
     </swiper-slide>
-    <!-- Optional controls -->
+    <!-- 分页器 -->
     <div class="swiper-pagination" slot="pagination"></div>
 </swiper>
 </template>
@@ -29,12 +30,14 @@ export default {
     props: {
         paginationType: {
             type: String,
-            default: "1", //1圆点分页，2数字分页
+            default: "1", //分页类型:1圆点2分数
         },
+
         height: {
             type: String,
             default: "auto",
         },
+
         swiperImgs: {
             type: Array,
             default: function () {
@@ -48,7 +51,7 @@ export default {
             swiperOption: {
                 autoplay: true,
                 autoHeight: "auto",
-                pagination: {},
+                pagination: {}, //分页器属性设置
             },
         };
     },
@@ -63,9 +66,7 @@ export default {
                 case "1":
                     this.swiperOption.pagination = {
                         el: ".swiper-pagination",
-                        type: "bullets",
-                        bulletClass: "custom-bullet-class",
-                        bulletActiveClass: "my-bullet-active",
+                        bulletClass: "custom-bullet"
                     };
                     break;
                 case "2":
@@ -88,39 +89,40 @@ export default {
 }
 
 .swiper-pagination {
-    bottom: px2rem(12);
-
-    .custom-bullet-class {
-        box-sizing: border-box;
-        border-radius: 100%;
-        width: px2rem(6);
-        height: px2rem(6);
-        border: px2rem(1) solid white;
-        margin: 0 px2rem(4);
-        display: inline-block;
-        opacity: 1;
-    }
+    top: px2rem(160);
 }
 
 .swiper-pagination-fraction {
     left: auto;
     right: 0;
     width: auto;
+    top: auto;
+    bottom: px2rem(32);
     font-size: $infoSize;
     background-color: rgba($color: #000000, $alpha: 0.3);
     padding: px2rem(6) px2rem(18);
     border-top-left-radius: px2rem(16);
     border-bottom-left-radius: px2rem(16);
-    bottom: px2rem(32);
     color: white;
-
-    .swiper-pagination-current {
-        font-size: $titleSize;
-        font-weight: bold;
-    }
 }
 
-.my-bullet-active {
+.swiper-pagination-current { 
+    font-size: $titleSize;
+    font-weight: bold;
+}
+
+.custom-bullet {
+    box-sizing: border-box;
+    border-radius: 100%;
+    width: px2rem(6);
+    height: px2rem(6);
+    border: px2rem(1) solid white;
+    margin: 0 px2rem(4);
+    display: inline-block;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
     background-color: white;
 }
 </style>
