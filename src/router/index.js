@@ -14,15 +14,15 @@ const router = new VueRouter({
       component: Main
     },
     {
+      path: '/goodsList/:goods',
+      name: 'goodsList',
+      component: () => import('../views/GoodsList.vue')
+    },
+    {
       path: '/goodsDetail',
       name: 'goodsDetail',
       component: () => import('../views/GoodsDetail.vue')
     },
-    {
-      path: '/goodsList',
-      name: 'goodsList',
-      component: () => import('../views/GoodsList.vue')
-    }
   ]
 })
 

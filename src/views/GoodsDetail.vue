@@ -8,7 +8,7 @@
         </template>
     </navigation-bar>
     <div class="goods-detail-content">
-        <my-swiper :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
+        <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
     </div>
 </div>
 </template>
@@ -33,8 +33,7 @@ export default {
     },
 
     created: function () {
-        console.log(this.$router);
-        // this.goodsData = this.$router.params.goods;
+        this.goodsData = this.$router.history.current.params.goods;
     },
 
     methods: {

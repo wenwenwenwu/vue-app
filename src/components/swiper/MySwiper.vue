@@ -27,6 +27,10 @@ export default {
     },
 
     props: {
+        paginationType: {
+            type: String,
+            default: "1", //1圆点分页，2数字分页
+        },
         height: {
             type: String,
             default: "auto",
@@ -44,20 +48,44 @@ export default {
             swiperOption: {
                 autoplay: true,
                 autoHeight: "auto",
-                pagination: {
-                    el: ".swiper-pagination",
-                    type: "bullets",
-                    bulletClass: "custom-bullet-class",
-                    bulletActiveClass: "my-bullet-active",
-                },
+                pagination: {},
             },
         };
+    },
+
+    created: function () {
+        this.initPaginnationLayout();
+    },
+
+    methods: {
+        initPaginnationLayout: function () {
+            switch (this.paginationType) {
+                case "1":
+                    this.swiperOption.pagination = {
+                        el: ".swiper-pagination",
+                        type: "bullets",
+                        bulletClass: "custom-bullet-class",
+                        bulletActiveClass: "my-bullet-active",
+                    };
+                    break;
+                case "2":
+                    this.swiperOption.pagination = {
+                        el: ".swiper-pagination",
+                        type: "fraction",
+                    };
+                    break;
+            }
+        },
     },
 };
 </script>
 
 <style lang="scss">
 @import "@css/style.scss";
+
+.swiper-slide-img {
+    width: 100%;
+}
 
 .swiper-pagination {
     bottom: px2rem(12);
@@ -71,6 +99,24 @@ export default {
         margin: 0 px2rem(4);
         display: inline-block;
         opacity: 1;
+    }
+}
+
+.swiper-pagination-fraction {
+    left: auto;
+    right: 0;
+    width: auto;
+    font-size: $infoSize;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    padding: px2rem(6) px2rem(18);
+    border-top-left-radius: px2rem(16);
+    border-bottom-left-radius: px2rem(16);
+    bottom: px2rem(32);
+    color: white;
+
+    .swiper-pagination-current {
+        font-size: $titleSize;
+        font-weight: bold;
     }
 }
 
