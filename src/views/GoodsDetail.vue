@@ -22,6 +22,7 @@ export default {
             SWIPER_IMAGE_HEIGHT: 364,
             navBarStyle: {
                 backgroundColor: "",
+                position: "fixed",
             },
             goodsData: {},
         };
@@ -44,5 +45,28 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "@css/style.scss";
+
+.goods-detail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+
+    &-nav-left {
+        width: 100%;
+        display: flex;
+
+        img {
+            align-self: center;
+        }
+    }
+
+    &-content {
+        overflow: hidden;
+        overflow-y: auto;
+        height: 100%;
+    }
+}
 </style>
