@@ -29,23 +29,23 @@ export default {
     },
     props: {
         /**
-                排序方式
-                 * 1：默认
-                 * 1-2：价格由高到低
-                 * 1-3：销量由高到底
-                 * 2：有货优先
-                 * 3：直营优先
-                 */
+                    排序方式
+                     * 1：默认
+                     * 1-2：价格由高到低
+                     * 1-3：销量由高到底
+                     * 2：有货优先
+                     * 3：直营优先
+                     */
         sort: {
             type: String,
             default: "1",
         },
         /**
-                布局方式
-                 * 1：列表布局
-                 * 2：网格布局
-                 * 3：瀑布流布局
-                 */
+                    布局方式
+                     * 1：列表布局
+                     * 2：网格布局
+                     * 3：瀑布流布局
+                     */
         layoutType: {
             type: String,
             default: "3",
@@ -232,15 +232,11 @@ export default {
                 return;
             }
             this.$router.push({
-                name: "goodsDetails",
+                name: 'goodsDetail',
                 params: {
-                    routerType: "push",
-                },
-                // 把传递的数据附加到我们的 URL 上
-                query: {
-                    goodsId: item.id,
-                },
-            });
+                    goods: item
+                }
+            })
         },
         /**
          * 滑动变化
@@ -288,12 +284,6 @@ export default {
 
             &-name {
                 font-size: $infoSize;
-                // overflow: hidden;
-                // text-overflow: ellipsis;
-                // word-break: break-word;
-                // -webkit-line-clamp: 2;
-                // -webkit-box-orient: vertical;
-                // display: -webkit-box;
                 line-height: px2rem(18);
 
                 &-hint {
