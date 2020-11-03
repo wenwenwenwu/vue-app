@@ -13,6 +13,13 @@
     -webkit-box-orient: vertical;
 }
 
+.single-row-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: -webkit-box;
+}
+
 // 第二层
 .z-index-2{
     z-index: 2;

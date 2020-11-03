@@ -3,8 +3,8 @@
     <navigation-bar :isShowBack="false" :navBarStyle="navBarStyle">
         <template v-slot:nav-left>
             <div class="goods-detail-nav-left" @click="onBackClick">
-                <img src="@imgs/back-2.svg" :style="{opacity: leftImgOpacity}" />
-                <img src="@imgs/back-white.svg" alt="" :style="{opacity: navBarSlotOpacity}" />
+                <img src="@imgs/back-2.svg" :style="{ opacity: leftImgOpacity }" />
+                <img src="@imgs/back-white.svg" alt="" :style="{ opacity: navBarSlotOpacity }" />
             </div>
         </template>
         <template v-slot:nav-center>
@@ -13,7 +13,43 @@
     </navigation-bar>
     <div class="goods-detail-content" @scroll="onScrollChange">
         <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
-        <div class="goods-detail-content-dog"></div>
+        // 内容
+        <div class="goods-detail-content-desc">
+            <div class="goods-detail-content-desc-item">
+                // 商品价格
+                <p class="goods-detail-content-desc-item-price">
+                    ¥{{ goodsData.price | priceValue }}
+                </p>
+                // 商品名称
+                <p class="goods-detail-content-desc-item-name">
+                    <direct v-if="goodsData.isDirect"></direct>{{ goodsData.name }}
+                </p>
+            </div>
+            <div class="goods-detail-content-desc-item">
+                // 已选商品
+                <p class="goods-detail-content-desc-item-select single-row-text">
+                    已选<span class="single-row-text">{{ goodsData.name }}</span>
+                </p>
+                // 附加服务
+                <div class="goods-detail-content-desc-item-support">
+                    <ul class="goods-detail-content-desc-item-support-list">
+                        <li class="goods-detail-content-desc-item-support-list-item" v-for="(item, index) in attachDatas" :key="index">
+                            <img src="@imgs/support.svg" />
+                            <span>{{ item }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            // 商品描述
+            <div class="goods-detail-content-desc-detail">
+                <img v-for="(item, index) in goodsData.detailImgs" :key="index" :src="item" alt="" />
+            </div>
+        </div>
+    </div>
+    // 加入购物车、立即购买
+    <div class="goods-detail-buy">
+        <div class="goods-detail-buy-add">加入购物车</div>
+        <div class="goods-detail-buy-now">立即购买</div>
     </div>
 </div>
 </template>
@@ -21,12 +57,22 @@
 <script>
 import NavigationBar from "@c/currency/NavigationBar";
 import MySwiper from "@c/swiper/MySwiper";
+import Direct from "@c/goods/Direct";
 export default {
     data: function () {
         return {
             SWIPER_IMAGE_HEIGHT: 364,
             ANCHOR_SCROLL_TOP: 310,
             goodsData: {},
+            attachDatas: [
+                "可配送海外",
+                "京东发货&售后",
+                "可配送海外",
+                "精准达",
+                "211限时达",
+                "可自提",
+                "不可使用优惠券",
+            ],
             scrollTopValue: 0,
         };
     },
@@ -34,6 +80,7 @@ export default {
     components: {
         NavigationBar,
         MySwiper,
+        Direct,
     },
 
     created: function () {
@@ -60,7 +107,7 @@ export default {
             return {
                 backgroundColor: "rgba(216,30,6," + this.navBarSlotOpacity + ")",
                 position: "fixed",
-                top: 0
+                top: 0,
             };
         },
 
@@ -105,9 +152,100 @@ export default {
         overflow-y: auto;
         height: 100%;
 
-        &-dog {
+        &-desc {
             widows: 100%;
-            height: px2rem(2000);
+            background-color: $bgColor;
+            box-shadow: 0 0 px2rem(16) rgba($color: #000000, $alpha: 0.2);
+
+            &-item {
+                background-color: white;
+                padding: $marginSize;
+                margin-bottom: $marginSize;
+
+                &-price {
+                    font-size: px2rem(20);
+                    color: $mainColor;
+                    font-weight: 5000;
+                }
+
+                &-name {
+                    margin-top: $marginSize;
+                    font-size: $titleSize;
+                    font-weight: 500;
+                    line-height: px2rem(20);
+                }
+
+                &-select {
+                    font-size: $infoSize;
+                    color: $hintColor;
+                    height: px2rem(44);
+                    display: flex;
+                    align-items: center;
+                    border-bottom: px2rem(1) solid $lineColor;
+
+                    &-span {
+                        color: $textColor;
+                        font-size: $titleSize;
+                        font-weight: bold;
+                        margin-left: px2rem(4);
+                    }
+                }
+
+                &-support {
+                    margin-top: $marginSize;
+
+                    &-list {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        &-item {
+                            display: flex;
+                            align-items: center;
+                            padding: px2rem(6) 0;
+                            margin-right: $marginSize;
+
+                            img {
+                                width: px2rem(12);
+                                margin-right: px2rem(4);
+                            }
+
+                            span {
+                                font-size: $minInfoSize;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-detail {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &-buy {
+        background-color: white;
+        border-top: px2rem(1) solid $lineColor;
+        height: px2rem(46);
+        line-height: px2rem(46);
+        text-align: right;
+
+        div {
+            display: inline-block;
+            width: px2rem(100);
+            text-align: center;
+            font-size: $infoSize;
+            color: white;
+        }
+
+        &-add {
+            background-color: $mainColor;
+        }
+
+        &-now {
+            background-color: darkgoldenrod;
         }
     }
 }
