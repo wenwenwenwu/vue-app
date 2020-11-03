@@ -106,11 +106,6 @@ export default {
     color: white;
 }
 
-.swiper-pagination-current { 
-    font-size: $titleSize;
-    font-weight: bold;
-}
-
 .custom-bullet {
     box-sizing: border-box;
     border-radius: 100%;

@@ -1,22 +1,23 @@
 <template>
-  <div class="my">
-    <navigation-bar :pageName="'个人中心'" :isShowBack="true"></navigation-bar>
+<div class="my">
+    <navigation-bar :pageName="'个人中心'" :isShowBack="false"></navigation-bar>
     <h1>My</h1>
-  </div>
+</div>
 </template>
 
 <script>
 import NavigationBar from "@c/currency/NavigationBar.vue";
 export default {
-  components: {
-    NavigationBar,
-  },
+    components: {
+        NavigationBar,
+    },
 };
 </script>
-<style lang="scss" scpped>
+
+<style lang="scss">
 .my {
-  width: 100%;
-  height: 100%;
-  font-size: 32px;
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
 }
 </style>
