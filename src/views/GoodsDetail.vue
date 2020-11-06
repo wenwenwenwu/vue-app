@@ -1,6 +1,8 @@
 <template>
 <div class="goods-detail">
     <navigation-bar :isShowBack="false" :navBarStyle="navBarStyle">
+        //带name的slot内容放置在template中,冒号后不要空格
+        //不带name的slot内容放置在div中
         <template v-slot:nav-left>
             <div class="goods-detail-nav-left" @click="onBackClick">
                 <img src="@imgs/back-2.svg" :style="{ opacity: leftImgOpacity }" />
@@ -8,43 +10,53 @@
             </div>
         </template>
         <template v-slot:nav-center>
-            <p class="goods-detail-nav-title">商品详情</p>
+            <p class="goods-detail-nav-title" :style="{ opacity: navBarSlotOpacity }">
+                商品详情
+            </p>
         </template>
     </navigation-bar>
-    <div class="goods-detail-content" @scroll="onScrollChange">
-        <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
-        // 内容
-        <div class="goods-detail-content-desc">
-            <div class="goods-detail-content-desc-item">
-                // 商品价格
-                <p class="goods-detail-content-desc-item-price">
-                    ¥{{ goodsData.price | priceValue }}
-                </p>
-                // 商品名称
-                <p class="goods-detail-content-desc-item-name">
-                    <direct v-if="goodsData.isDirect"></direct>{{ goodsData.name }}
-                </p>
-            </div>
-            <div class="goods-detail-content-desc-item">
-                // 已选商品
-                <p class="goods-detail-content-desc-item-select single-row-text">
-                    已选<span class="single-row-text">{{ goodsData.name }}</span>
-                </p>
-                // 附加服务
-                <div class="goods-detail-content-desc-item-support">
-                    <ul class="goods-detail-content-desc-item-support-list">
-                        <li class="goods-detail-content-desc-item-support-list-item" v-for="(item, index) in attachDatas" :key="index">
-                            <img src="@imgs/support.svg" />
-                            <span>{{ item }}</span>
-                        </li>
-                    </ul>
+    <div class="goods-detail-content">
+        <parallax @onScrollChange="onScrollChange">
+            <template v-slot:parallax-slow>
+                <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
+            </template>
+            <template>
+                // 内容
+                <div class="goods-detail-content-desc">
+                    <div class="goods-detail-content-desc-item">
+                        // 商品价格
+                        <p class="goods-detail-content-desc-item-price">
+                            ¥{{ goodsData.price | priceValue }}
+                        </p>
+                        // 商品名称
+                        <p class="goods-detail-content-desc-item-name">
+                            <direct v-if="goodsData.isDirect"></direct>
+                            {{ goodsData.name }}
+                        </p>
+                    </div>
+                    <div class="goods-detail-content-desc-item">
+                        // 已选商品
+                        <p class="goods-detail-content-desc-item-select">
+                            已选
+                            <span class="single-row-text">{{ goodsData.name }}</span>
+                        </p>
+                        // 附加服务
+                        <div class="goods-detail-content-desc-item-support">
+                            <ul class="goods-detail-content-desc-item-support-list">
+                                <li class="goods-detail-content-desc-item-support-list-item" v-for="(item, index) in attachDatas" :key="index">
+                                    <img src="@imgs/support.svg" />
+                                    <span>{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    // 商品描述
+                    <div class="goods-detail-content-desc-detail">
+                        <img v-for="(item, index) in goodsData.detailImgs" :key="index" :src="item" alt="" />
+                    </div>
                 </div>
-            </div>
-            // 商品描述
-            <div class="goods-detail-content-desc-detail">
-                <img v-for="(item, index) in goodsData.detailImgs" :key="index" :src="item" alt="" />
-            </div>
-        </div>
+            </template>
+        </parallax>
     </div>
     // 加入购物车、立即购买
     <div class="goods-detail-buy">
@@ -58,6 +70,7 @@
 import NavigationBar from "@c/currency/NavigationBar";
 import MySwiper from "@c/swiper/MySwiper";
 import Direct from "@c/goods/Direct";
+import Parallax from "@c/parallax/Parallax";
 export default {
     data: function () {
         return {
@@ -67,8 +80,7 @@ export default {
             attachDatas: [
                 "可配送海外",
                 "京东发货&售后",
-                "可配送海外",
-                "精准达",
+                "京准达",
                 "211限时达",
                 "可自提",
                 "不可使用优惠券",
@@ -81,6 +93,7 @@ export default {
         NavigationBar,
         MySwiper,
         Direct,
+        Parallax,
     },
 
     created: function () {
@@ -92,9 +105,9 @@ export default {
             this.$router.go(-1);
         },
 
-        onScrollChange: function ($event) {
+        onScrollChange: function (scrollValue) {
             //获取当前滚动的距离(超出屏幕上方距离)
-            this.scrollTopValue = $event.target.scrollTop;
+            this.scrollTopValue = scrollValue;
         },
     },
 
@@ -103,16 +116,16 @@ export default {
             return 1 - this.scrollTopValue / this.ANCHOR_SCROLL_TOP;
         },
 
+        navBarSlotOpacity: function () {
+            return this.scrollTopValue / this.ANCHOR_SCROLL_TOP;
+        },
+
         navBarStyle: function () {
             return {
                 backgroundColor: "rgba(216,30,6," + this.navBarSlotOpacity + ")",
                 position: "fixed",
                 top: 0,
             };
-        },
-
-        navBarSlotOpacity: function () {
-            return this.scrollTopValue / this.ANCHOR_SCROLL_TOP;
         },
     },
 };
@@ -125,7 +138,7 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
 
     &-nav-left {
         width: 100%;
@@ -165,7 +178,7 @@ export default {
                 &-price {
                     font-size: px2rem(20);
                     color: $mainColor;
-                    font-weight: 5000;
+                    font-weight: 500;
                 }
 
                 &-name {
@@ -183,7 +196,7 @@ export default {
                     align-items: center;
                     border-bottom: px2rem(1) solid $lineColor;
 
-                    &-span {
+                    span {
                         color: $textColor;
                         font-size: $titleSize;
                         font-weight: bold;
@@ -211,6 +224,7 @@ export default {
 
                             span {
                                 font-size: $minInfoSize;
+                                color: $hintColor;
                             }
                         }
                     }
@@ -229,15 +243,16 @@ export default {
         background-color: white;
         border-top: px2rem(1) solid $lineColor;
         height: px2rem(46);
-        line-height: px2rem(46);
-        text-align: right;
+        display: flex;
+        justify-content: flex-end;
 
         div {
-            display: inline-block;
-            width: px2rem(100);
-            text-align: center;
             font-size: $infoSize;
             color: white;
+            width: px2rem(100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         &-add {
