@@ -1,7 +1,9 @@
 <template>
 <div id="app">
     <transition :name="transitionName">
-        <router-view />
+        <keep-alive :include="virtualTaskStack">
+            <router-view />
+        </keep-alive>
     </transition>
 </div>
 </template>
@@ -11,6 +13,7 @@ export default {
     data: function () {
         return {
             transitionName: "fold-left",
+            virtualTaskStack: ["imooc"],
         };
     },
 
@@ -19,8 +22,10 @@ export default {
         $route(to, from) {
             const routerType = to.params.routerType;
             if (routerType == "push") {
+                this.virtualTaskStack.push(to.name);
                 this.transitionName = "push-out";
             } else {
+                this.virtualTaskStack.pop();
                 this.transitionName = "push-back";
             }
         },

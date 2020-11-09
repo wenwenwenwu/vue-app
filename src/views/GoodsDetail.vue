@@ -72,6 +72,7 @@ import MySwiper from "@c/swiper/MySwiper";
 import Direct from "@c/goods/Direct";
 import Parallax from "@c/parallax/Parallax";
 export default {
+    name: "goodsDetail",
     data: function () {
         return {
             SWIPER_IMAGE_HEIGHT: 364,
@@ -97,7 +98,7 @@ export default {
     },
 
     created: function () {
-        this.goodsData = this.$router.history.current.params.goods;
+        this.loadGoodsData();
     },
 
     methods: {
@@ -108,6 +109,18 @@ export default {
         onScrollChange: function (scrollValue) {
             //获取当前滚动的距离(超出屏幕上方距离)
             this.scrollTopValue = scrollValue;
+        },
+
+        loadGoodsData: function () {
+            this.$http
+                .get("/goodsDetail", {
+                    params: {
+                        goodsId: this.$router.history.current.query.goodsId,
+                    },
+                })
+                .then((data) => {
+                    this.goodsData = data.goodsData
+                });
         },
     },
 
@@ -163,6 +176,7 @@ export default {
 
     &-content {
         height: 100%;
+        overflow: hidden;
 
         &-desc {
             width: 100%;

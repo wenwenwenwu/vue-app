@@ -1,5 +1,5 @@
 <template>
-<div class="home" @scroll="onSrcollChange">
+<div class="home" @scroll="onSrcollChange" ref="home">
     <navigation-bar :isShowBack="false" :navBarStyle="navBarStyle">
         <!-- 冒号后不要空格 -->
         <template v-slot:nav-left>
@@ -86,6 +86,16 @@ export default {
             ANCHOR_SCROLL_TOP: 160,
         };
     },
+
+    created: function () {
+        this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal;
+        this.initData();
+    },
+
+    activated: function () {
+        this.$refs.home.scrollTop = this.scrollTopValue
+    },
+
     methods: {
         initData: function () {
             this.$http
@@ -116,11 +126,7 @@ export default {
                 this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal;
             }
         },
-    },
-    created: function () {
-        this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal;
-        this.initData();
-    },
+    }
 };
 </script>
 
