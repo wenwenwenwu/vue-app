@@ -1,9 +1,10 @@
 <template>
+<!-- 视差组件 -->
 <div class="parallax" @scroll="onScrollChange">
-    <div class="parallax-slow" :style="{top: slowTop}">
+    <div class="parallax-slow" :style="{ top: slowTop }">
         <slot name="parallax-slow"></slot>
     </div>
-    <div class="parallax-content z-index-2">
+    <div class="parallax-normal z-index-2">
         <slot></slot>
     </div>
 </div>
@@ -22,13 +23,13 @@ export default {
         onScrollChange: function ($event) {
             //获取当前滚动的距离(超出屏幕上方距离)
             this.scrollTopValue = $event.target.scrollTop;
-            this.$emit("onScrollChange", this.scrollTopValue)
+            this.$emit("onScrollChange", this.scrollTopValue);
         },
     },
 
     computed: {
         slowTop: function () {
-            return (this.scrollTopValue - this.scrollTopValue / this.SPEED_DIFF) + "px";
+            return this.scrollTopValue / this.SPEED_DIFF + "px";
         },
     },
 };
@@ -44,13 +45,11 @@ export default {
     overflow-y: auto;
 
     &-slow {
-        width: 100%;
         position: relative;
     }
 
-    &-content {
-        width: 100%;
-        position: relative;
+    &-normal {
+        position: relative; //不设置就不在外层了
     }
 }
 </style>

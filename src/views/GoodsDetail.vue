@@ -135,6 +135,7 @@ export default {
 @import "@css/style.scss";
 
 .goods-detail {
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
@@ -161,12 +162,10 @@ export default {
     }
 
     &-content {
-        overflow: hidden;
-        overflow-y: auto;
         height: 100%;
 
         &-desc {
-            widows: 100%;
+            width: 100%;
             background-color: $bgColor;
             box-shadow: 0 0 px2rem(16) rgba($color: #000000, $alpha: 0.2);
 
