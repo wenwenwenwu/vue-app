@@ -13,7 +13,7 @@ export default {
     data: function () {
         return {
             transitionName: "fold-left",
-            virtualTaskStack: ["imooc"],
+            virtualTaskStack: ["imooc"], //创建虚拟任务栈
         };
     },
 
@@ -22,9 +22,11 @@ export default {
         $route(to, from) {
             const routerType = to.params.routerType;
             if (routerType == "push") {
-                this.virtualTaskStack.push(to.name);
+                //push新页面时，添加这个新页面的名称到虚拟任务栈顶层
+                this.virtualTaskStack.push(to.name); 
                 this.transitionName = "push-out";
             } else {
+                //pop页面时，删除虚拟任务栈顶层页面的名称
                 this.virtualTaskStack.pop();
                 this.transitionName = "push-back";
             }
