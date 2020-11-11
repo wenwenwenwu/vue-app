@@ -10,7 +10,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'main',
+      name: 'jingdong',
       component: Main
     },
     {

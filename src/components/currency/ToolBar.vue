@@ -45,6 +45,10 @@ export default {
     onChangeFragment: function(item, index) {
         this.selectItemIndex = index;
         this.$emit('onChangeFragment',item.componentName);
+    },
+
+    pushFragment: function(index) {
+      this.onChangeFragment(this.toolBarData[index],index)
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
 <div class="buy-page">
-    <navigation-bar :pageName="'立即购买'" @onLeftClick="onBackClick"></navigation-bar>
+    <navigation-bar :pageName="'立即购买'" @on-left-click="onBackClick"></navigation-bar>
     <div class="buy-page-content">
         <div class="buy-page-content-goods">
             <img class="buy-page-content-goods-img" :src="goodsData.img" alt="" />
