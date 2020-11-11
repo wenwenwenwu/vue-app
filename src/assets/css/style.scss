@@ -47,3 +47,17 @@
       position: fixed;
       background-color: rgba($color: #000000, $alpha: 0.4);  
 }
+
+//提交按钮
+.pay-commit {
+    width: 90%;
+    height: px2rem(46);
+    line-height: px2rem(46);
+    margin-left: 5%;
+    display: block;
+    background-color: $mainColor;
+    border-radius: px2rem(50);
+    font-size: $titleSize;
+    color: white;
+    text-align: center;
+}

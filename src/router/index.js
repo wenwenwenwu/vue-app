@@ -23,6 +23,11 @@ const router = new VueRouter({
       name: 'goodsDetail',
       component: () => import('../views/GoodsDetail.vue')
     },
+    {
+      path: '/buy',
+      name: 'buy',
+      component: () => import('../views/Buy.vue')
+    },
   ]
 })
 
