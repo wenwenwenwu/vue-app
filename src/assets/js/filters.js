@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 Vue.filter('priceValue', function (value) {
     if (!value) {
-        return ''
+        return '0.00'
     }
     let result = parseFloat(value)
     if (Number.isInteger(result)) {
