@@ -1,14 +1,21 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
+Vue.use(Vuex) //Vue使用Vuex管理全局变量
 
 export default new Vuex.Store({
+  // 全局变量数据源
   state: {
-
     shoppingDatas: []
   },
+
+  // 计算属性
+  getter: {
+
+  },
+
+  // 操作全局变量的方法（同步执行）
   mutations: {
     addShoppingData: function (state, goods) {
       const isExist = state.shoppingDatas.some(item => {
@@ -30,8 +37,12 @@ export default new Vuex.Store({
 
     }
   },
+
+  //帮助mutations进行异步操作
   actions: {
   },
+
+  //将store分为多个module(模块)
   modules: {
   }
 })

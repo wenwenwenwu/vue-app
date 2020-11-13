@@ -4,7 +4,7 @@
     <div class="shopping-content">
         <div class="shopping-content-list">
             <div class="shopping-content-list-item" v-for="(item, index) in shoppingDatas" :key="index">
-                <img class="shopping-content-list-item-check" src="@imgs/no-check.svg" />
+                <img class="shopping-content-list-item-check" :src="checkImg(item.isCheck)" @click="onGoodsCheckClick(item)" />
                 <img class="shopping-content-list-item-img" :src="item.img" />
                 <div class="shopping-content-list-item-desc">
                     <p class="shopping-content-list-item-desc-name text-line-2">
@@ -15,14 +15,14 @@
                         <p class="shopping-content-list-item-desc-data-price">
                             ¥{{ item.price | priceValue }}
                         </p>
-                        <number-manager :defaultNumber="item.number" @onChangeNumber="onNumberChange(arguments,item,index)"></number-manager>
+                        <number-manager :initialNumber="item.number" @onChangeNumber="onNumberChange(arguments, item, index)"></number-manager>
                     </div>
                 </div>
             </div>
         </div>
         <div class="shopping-content-total">
             <div class="shopping-content-total-check">
-                <img src="@imgs/no-check.svg" alt="" />
+                <img :src="checkImg(totalData.isAll)" @click="onAllCheckClick" />
                 <p>全选</p>
             </div>
             <div class="shopping-content-total-price">
@@ -35,7 +35,7 @@
                 </p>
             </div>
             <div class="shopping-content-total-commit">
-                去结算{{ totalData.goodsNumber }}
+                去结算({{ totalData.goodsNumber }})
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@ export default {
     components: {
         NavigationBar,
         Direct,
-        NumberManager
+        NumberManager,
     },
     data: function () {
         return {
@@ -64,12 +64,51 @@ export default {
     },
     methods: {
         onNumberChange: function ($arguments, item, index) {
-            let number = $arguments[0]
-            this.$store.commit('changeShoppingDataNumber', {
+            let number = $arguments[0];
+            this.$store.commit("changeShoppingDataNumber", {
                 index: index,
-                number: number
-            })
-            console.log(item.number)
+                number: number,
+            });
+            if (item.isCheck) {
+                this.computeGoodsTotal();
+            }
+        },
+
+        onGoodsCheckClick: function (item) {
+            item.isCheck = !item.isCheck;
+            this.computeGoodsTotal();
+        },
+
+        onAllCheckClick: function () {
+            this.totalData.isAll = !this.totalData.isAll;
+            this.shoppingDatas.forEach((item) => {
+                item.isCheck = this.totalData.isAll;
+            });
+            this.computeGoodsTotal();
+        },
+
+        checkImg: function (isCheck) {
+            return isCheck ?
+                require("@imgs/check.svg") :
+                require("@imgs/no-check.svg");
+        },
+
+        //点击单选、全选、以及选中项的数量，改变均会触发该方法
+        computeGoodsTotal: function () {
+            this.totalData = {
+                isAll: true, //先置为true,遍历时又一个未选中就置为false
+                totalPrice: 0, //重置总价
+                goodsNumber: 0, //重置总数
+            };
+            this.shoppingDatas.forEach((item) => {
+                if (item.isCheck) {
+                    this.totalData.totalPrice +=
+                        parseFloat(item.price) * parseInt(item.number);
+                    this.totalData.goodsNumber += parseInt(item.number);
+                } else {
+                    this.totalData.isAll = false;
+                }
+            });
         },
     },
 };

@@ -8,8 +8,9 @@
 
 <script>
 export default {
+    
     props: {
-        defaultNumber: {
+        initialNumber: {
             type: Number,
             default: 1,
         },
@@ -22,7 +23,7 @@ export default {
     },
 
     watch: {
-        defaultNumber: function (newValue) {
+        initialNumber: function (newValue) {
             this.number = newValue;
         },
 
@@ -53,13 +54,13 @@ export default {
     display: flex;
     font-size: $infoSize;
     height: px2rem(20);
-    line-height: px2rem(20);
 
     span {
-        width: px2rem(30);
-        text-align: center;
-        display: inline-block;
         font-weight: 500;
+        width: px2rem(30);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &-number {
