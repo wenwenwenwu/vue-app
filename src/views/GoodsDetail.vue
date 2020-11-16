@@ -79,7 +79,7 @@
       </parallax>
     </div>
     // 加入购物车、立即购买
-    <div class="goods-detail-buy">
+    <div class="goods-detail-buy" :class="{'iphoneX-bottom' : $store.state.isIphoneX}">
       <div class="goods-detail-buy-add" @click="onAddGoodsClick">
         加入购物车
       </div>
@@ -310,6 +310,7 @@ export default {
       font-size: $infoSize;
       color: white;
       width: px2rem(100);
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;

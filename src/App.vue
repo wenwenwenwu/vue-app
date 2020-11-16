@@ -35,6 +35,10 @@ export default {
             }
         },
     },
+
+    created: function() {
+        this.$store.commit("setIsIphoneX",window.isIphoneX)
+    }
 };
 </script>
 

@@ -5,7 +5,7 @@
         <img :src="layoutType.icon" @click="onChangeLayoutTypeClick" />
       </template>
     </navigation-bar>
-    <div class="goods-list-page-content">
+    <div class="goods-list-page-content" :class="{'iphoneX-bottom' : $store.state.isIphoneX}">
       <goods-options @optionsChange="onGoodsOptionChange"></goods-options>
       <goods :layoutType="layoutType.type" :sort="sortType"></goods>
     </div>

@@ -7,7 +7,8 @@ Vue.use(Vuex) //Vue使用Vuex管理全局变量
 export default new Vuex.Store({
   // 全局变量数据源
   state: {
-    shoppingDatas: []
+    shoppingDatas: [],
+    isIphoneX: false
   },
 
   // 计算属性
@@ -35,6 +36,10 @@ export default new Vuex.Store({
     changeShoppingDataNumber: function (state, data) {
       state.shoppingDatas[data.index].number = data.number
 
+    },
+
+    setIsIphoneX:function(state,isIphoneX){
+      state.isIphoneX = isIphoneX
     }
   },
 
