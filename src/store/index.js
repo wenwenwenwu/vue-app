@@ -8,7 +8,8 @@ export default new Vuex.Store({
   // 全局变量数据源
   state: {
     shoppingDatas: [],
-    isIphoneX: false
+    isIphoneX: false,
+    username: undefined
   },
 
   // 计算属性
@@ -38,8 +39,16 @@ export default new Vuex.Store({
 
     },
 
-    setIsIphoneX:function(state,isIphoneX){
+    setIsIphoneX: function (state, isIphoneX) {
       state.isIphoneX = isIphoneX
+    },
+
+    setUsername: function (state, username) {
+      state.username = username
+    },
+
+    clearUsername: function(state){
+      state.username = undefined
     }
   },
 
