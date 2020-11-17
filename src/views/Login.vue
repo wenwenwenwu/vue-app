@@ -103,7 +103,6 @@ export default {
           routerType: "push",
         },
       });
-      this.md5Password = this.md5(this.password);
     },
   },
 };
