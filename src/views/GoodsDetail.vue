@@ -13,6 +13,7 @@
           />
         </div>
       </template>
+      <!--  -->
       <template v-slot:nav-center>
         <p
           class="goods-detail-nav-title"
